@@ -7,15 +7,16 @@ namespace AG.BLL
     public class TweeterService
     {
         private ILogger Logger;
-        public TweeterService(ILogger logger = null)
+        public TweeterService(ILogger logger)
         {
-            //default to Console Logger
             Logger = logger;
         }
 
         public IList<TweetStructure> GetTweetsByAllUsers()
         {
+            Logger.LogError("No info");
             return null;
+            
         }
 
     }

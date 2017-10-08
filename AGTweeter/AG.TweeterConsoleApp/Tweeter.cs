@@ -36,28 +36,27 @@ namespace AG.TweeterConsoleApp
             //logger IOC
             try
             {
-                logger = new ConsoleLogger();
+                logger = new FileLogger();
             }
             catch (Exception ex)
-            {
-                //Need this explicitly set as the this is the mechanism for tranporting messages and logging issues
+            {                
                 Console.WriteLine("An error occurred initializing the Logger");
                 Console.WriteLine($"Exception: {ex.Message}");
                 return result;
             }
 
             //validation IOC
-            try
-            {
-         //       IValidator validator = new ConsoleValidator();
-            }
-            catch (Exception ex)
-            {
+            //try
+            //{
+            //   IValidator validator = new ConsoleValidator();
+            //}
+            //catch (Exception ex)
+            //{
 
-            }
+            //}
 
             //Data access IOC
-          //  IDataAccess fileDataAccess = new FileDataAccess();
+            //IDataAccess fileDataAccess = new FileDataAccess();
 
             //service instance
             tweeterService = new TweeterService(logger);
