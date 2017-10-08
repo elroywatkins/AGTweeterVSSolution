@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AG.Common\AG.Common.csproj" />
+    <ProjectReference Include="..\AG.TweeterService\AG.TweeterService.csproj" />
+  </ItemGroup>
+
+</Project>
