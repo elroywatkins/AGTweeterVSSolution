@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using AG.Common;
 using AG.Common.Models.Logger;
-using AG.BLL;
+using AG.TweeterBLL;
+using AG.TweeterDAL;
 
 namespace AG.TweeterConsoleApp
 {
@@ -10,7 +11,7 @@ namespace AG.TweeterConsoleApp
     {
         private TweeterService tweeterService;
         private IList<TweetStructure> tweetMessages;
-
+        
         public void Run()
         {
             Console.WriteLine("Running Tweeter Console Application");
@@ -31,12 +32,13 @@ namespace AG.TweeterConsoleApp
 
         private bool InitTweeterServiceForConsole()
         {
-            bool result = false;
+            bool result = false; 
             ILogger logger;
             //logger IOC
             try
             {
-                logger = new FileLogger();
+                //LogFileName = string.IsNullOrEmpty(logFileName) ? $"{Directory.GetCurrentDirectory()}\\log.txt" : LogFileName;
+                logger = new FileLogger(ConsoleSettings.LogFilePath);                
             }
             catch (Exception ex)
             {                
@@ -45,29 +47,36 @@ namespace AG.TweeterConsoleApp
                 return result;
             }
 
-            //validation IOC
-            //try
-            //{
-            //   IValidator validator = new ConsoleValidator();
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
-
-            //Data access IOC
-            //IDataAccess fileDataAccess = new FileDataAccess();
+            //Data access IOC            
+            IDataSource userDataSource = new FileDataSource(ConsoleSettings.UsersFilePath,logger);
+            IDataSource tweetsDataSource = new FileDataSource(ConsoleSettings.TweetsFilePath, logger);
 
             //service instance
-            tweeterService = new TweeterService(logger);
-            tweetMessages = tweeterService.GetTweetsByAllUsers();
+            try
+            {
+                Console.WriteLine("-----------------");
+                Console.WriteLine("Processing Tweets");
+                Console.WriteLine("-----------------");
+                tweeterService = new TweeterService(logger, userDataSource, tweetsDataSource);
+                tweetMessages = tweeterService.GetTweetsByAllUsers();
+                PrintDisplay(tweetMessages);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("An error occurred initializing the tweeter service");
+                Console.WriteLine($"Exception: {ex.Message}");
+                return result;
+            }
+
             return result;
         }
 
         // Method to print results to screen
         private void PrintDisplay(IList<TweetStructure> tweetMessages)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("---------------");
+            Console.WriteLine("Printing Tweets");
+            Console.WriteLine("---------------");
         }
     }
 }

@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AG.Common\AG.Common.csproj" />
-    <ProjectReference Include="..\AG.TweeterDAL\AG.TweeterDAL.csproj" />
   </ItemGroup>
 
 </Project>

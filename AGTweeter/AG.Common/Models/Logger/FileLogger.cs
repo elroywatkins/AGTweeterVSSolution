@@ -11,14 +11,16 @@ namespace AG.Common.Models.Logger
         private string LogFileName;
         private const string singleDivider = "------------------------------------------------------------";
         private const string doubleDivider = "============================================================";
-        public FileLogger(string logFileName = null)
-        {
-            //use default from settings if filename not specified
-            //TODO get from settings            
-            LogFileName = string.IsNullOrEmpty(logFileName) ? $"{Directory.GetCurrentDirectory()}\\log.txt" : LogFileName;
+        public FileLogger(string logFileName)
+        {                                
+            if (string.IsNullOrEmpty(logFileName))
+            {
+                throw new Exception("Log file name can not be empty");
+            }
 
             try
             {
+                LogFileName = logFileName;
                 using (TextWriter tw = new StreamWriter(LogFileName, true))
                 {
                     tw.WriteLine(doubleDivider);

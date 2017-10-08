@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AG.BLL;
+using AG.TweeterBLL;
 using AG.Common;
 using AG.Common.Models.Logger;
 
@@ -12,7 +12,7 @@ namespace AG.TweeterService.Tests
         public void GetTweetsByAllUsersTest()
         {
             ILogger consoleLogger = new ConsoleLogger();
-            BLL.TweeterService tweeterService = new BLL.TweeterService(consoleLogger);
+            TweeterBLL.TweeterService tweeterService = new TweeterBLL.TweeterService(consoleLogger);
             Assert.IsNotNull(tweeterService.GetTweetsByAllUsers());
         }
     }

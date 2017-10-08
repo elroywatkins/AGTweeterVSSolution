@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AG.TweeterService", "AG.Twe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AG.TweeterService.Tests", "AG.TweeterService.Tests\AG.TweeterService.Tests.csproj", "{31B235E1-DDF6-4859-80D2-D6CC9E8155C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AG.TweeterDAL", "AG.TweeterDAL\AG.TweeterDAL.csproj", "{B51C35CB-A0DB-45A4-8720-90AF86525535}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{31B235E1-DDF6-4859-80D2-D6CC9E8155C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31B235E1-DDF6-4859-80D2-D6CC9E8155C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31B235E1-DDF6-4859-80D2-D6CC9E8155C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B51C35CB-A0DB-45A4-8720-90AF86525535}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B51C35CB-A0DB-45A4-8720-90AF86525535}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B51C35CB-A0DB-45A4-8720-90AF86525535}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B51C35CB-A0DB-45A4-8720-90AF86525535}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
