@@ -9,7 +9,7 @@ namespace AG.TweeterConsoleApp
 {
     public class Tweeter
     {
-        private TweeterService tweeterService;
+        private TweeterBLL.TweeterService tweeterService;
         private IList<TweetStructure> tweetMessages;
         
         public void Run()
@@ -57,7 +57,7 @@ namespace AG.TweeterConsoleApp
                 Console.WriteLine("-----------------");
                 Console.WriteLine("Processing Tweets");
                 Console.WriteLine("-----------------");
-                tweeterService = new TweeterService(logger, userDataSource, tweetsDataSource);
+                tweeterService = new TweeterBLL.TweeterService(logger, userDataSource, tweetsDataSource);
                 tweetMessages = tweeterService.GetTweetsByAllUsers();
                 PrintDisplay(tweetMessages);
             }

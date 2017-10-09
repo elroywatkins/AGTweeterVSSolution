@@ -8,14 +8,16 @@ namespace AG.TweeterBLL
     public class TweeterService
     {
         private ILogger Logger;
-        private IDataSource UsersData;
-        private IDataSource TweetsData;
+        private IDataSource UsersDataSource;
+        private IDataSource TweetsDataSource;
+        private UserRepository UserRepository;
+        private TweetRepository TweetRepository;
 
-        public TweeterService(ILogger logger, IDataSource usersData, IDataSource tweetsData)
+        public TweeterService(ILogger logger, IDataSource usersDataSource, IDataSource tweetsDataSource)
         {
             Logger = logger;
-            UsersData = usersData;            
-            TweetsData = tweetsData;
+            UsersDataSource = usersDataSource;            
+            TweetsDataSource = tweetsDataSource;
         }
 
         public IList<TweetStructure> GetTweetsByAllUsers()
@@ -23,18 +25,20 @@ namespace AG.TweeterBLL
             if (!DataSourcesAreValid())
                 return null;
 
+            UserRepository = new UserRepository(UsersDataSource, Logger);            
+            TweetRepository = new TweetRepository(TweetsDataSource,UserRepository,Logger);
             return null;
         }
 
         private bool DataSourcesAreValid()
         {
             bool result = false;
-            if (!DataSourceIsValid(UsersData))
+            if (!DataSourceIsValid(UsersDataSource))
             {
                 throw new Exception("User Data Source is Invalid");
             }
 
-            if (!DataSourceIsValid(TweetsData))
+            if (!DataSourceIsValid(TweetsDataSource))
             {
                 throw new Exception("Tweets Data Source is Invalid");
             }

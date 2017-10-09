@@ -8,8 +8,7 @@ namespace AG.TweeterConsoleApp
         public static string UsersFilePath { get; }
         public static string TweetsFilePath { get;}        
         public static string LogFilePath { get; }
-        public static string FileDelimiterFollows { get; }
-        public static string FileDelimiterTweet { get; }
+       
         public static readonly ConsoleSettings instance = new ConsoleSettings();
         
         ConsoleSettings(){ }
@@ -20,8 +19,7 @@ namespace AG.TweeterConsoleApp
             LogFilePath = $"{AppBasePath}\\log.txt";
             UsersFilePath = $"{AppBasePath}\\inputfiles\\User.txt";
             TweetsFilePath = $"{AppBasePath}\\inputfiles\\Tweet.txt";
-            FileDelimiterFollows = "follows";
-            FileDelimiterTweet = ">";
+           
         }
     }
 }
