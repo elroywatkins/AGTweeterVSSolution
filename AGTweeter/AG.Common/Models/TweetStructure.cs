@@ -5,8 +5,8 @@ namespace AG.Common
 {
     public class TweetStructure : ITweetStructure
     {
-        public User user;
-        public IList<UserTweets> userTweets;
+        public User Tweeter;
+        public IList<Tweet> UserTweets;
     }
 
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AG.Common;
 using AG.TweeterDAL;
+using System.Linq;
 
 namespace AG.TweeterBLL
 {
@@ -10,8 +11,8 @@ namespace AG.TweeterBLL
         private ILogger Logger;
         private IDataSource UsersDataSource;
         private IDataSource TweetsDataSource;
-        private UserRepository UserRepository;
-        private TweetRepository TweetRepository;
+        //private UserRepository UserRepository;
+        //private TweetRepository TweetRepository;
 
         public TweeterService(ILogger logger, IDataSource usersDataSource, IDataSource tweetsDataSource)
         {
@@ -25,9 +26,57 @@ namespace AG.TweeterBLL
             if (!DataSourcesAreValid())
                 return null;
 
-            UserRepository = new UserRepository(UsersDataSource, Logger);            
-            TweetRepository = new TweetRepository(TweetsDataSource,UserRepository,Logger);
-            return null;
+            //initialise repositories
+            var userRepository = new UserRepository(UsersDataSource, Logger);            
+            var tweetRepository = new TweetRepository(TweetsDataSource,userRepository,Logger);
+
+            var tweetStructureList = new List<TweetStructure>();
+            var userList = userRepository.GetAllUsers();
+            
+            //loop through repositories 
+            foreach (var user in userList)
+            {
+                var tweetStructure = new TweetStructure()
+                {
+                    Tweeter = user,
+                    UserTweets = new List<Tweet>()
+                };
+
+                //Get All tweets for user
+                var tweets = tweetRepository.GetTweetsByUserName(user.Name);
+                
+                //if user has followers add their tweets
+                if (user.Followees != null)
+                {
+                    IList<Tweet> followeeTweets = new List<Tweet>();
+                    foreach (var follower in user.Followees)
+                    {
+                        foreach (var tweet in tweetRepository.GetTweetsByUserName(follower.Name))
+                        {
+                            followeeTweets.Add(tweet);
+                        }
+                    }
+
+                    //add follower tweets
+                    if (followeeTweets.Count > 0)
+                    {
+                        foreach (var tweet in followeeTweets)
+                        {
+                            tweets.Add(tweet);
+                        }
+                    }
+                }
+
+                //add all tweets to tweet structure
+                
+                foreach (var tweet in tweets)
+                {
+                    tweetStructure.UserTweets.Add(tweet);
+                }
+
+                tweetStructureList.Add(tweetStructure);
+            }
+            return tweetStructureList;
         }
 
         private bool DataSourcesAreValid()

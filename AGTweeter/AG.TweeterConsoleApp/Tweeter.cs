@@ -4,6 +4,7 @@ using AG.Common;
 using AG.Common.Models.Logger;
 using AG.TweeterBLL;
 using AG.TweeterDAL;
+using System.Linq;
 
 namespace AG.TweeterConsoleApp
 {
@@ -77,6 +78,27 @@ namespace AG.TweeterConsoleApp
             Console.WriteLine("---------------");
             Console.WriteLine("Printing Tweets");
             Console.WriteLine("---------------");
+
+            foreach(var tweet in tweetMessages.OrderBy(x=>x.Tweeter.Name))
+            {
+                Console.WriteLine(tweet.Tweeter.Name);
+                bool hasTweets = false;
+                foreach(var tweetMessage in tweet.UserTweets.OrderBy(x=>x.MessageOrder))
+                {
+                    Console.WriteLine("\t"+ $"{ tweetMessage.Tweeter.Name}: {tweetMessage.Message}");
+                    hasTweets = true;
+                }
+                //add empty line if no tweets
+                if (!hasTweets)
+                {
+                    Console.WriteLine("");
+                }
+            }
+
+            Console.WriteLine("-------------");
+            Console.WriteLine("End of Tweets");
+            Console.WriteLine("-------------");
+
         }
     }
 }
